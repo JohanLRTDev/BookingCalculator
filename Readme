@@ -1,0 +1,90 @@
+### Ce que j'ai appris à partir du code que j'ai créé
+
+Dans ce projet, j'ai utilisé plusieurs concepts et méthodes JavaScript pour manipuler des dates, effectuer des calculs, et interagir avec des éléments HTML de manière dynamique. Voici une explication détaillée des fonctions et méthodes que j'ai utilisées, ainsi que ce que j'ai appris.
+
+### 1. **Manipulation des Dates**
+
+#### a) **`new Date()`**
+
+const today = new Date();
+
+- **Ce que j'ai appris** : La méthode `new Date()` crée un objet représentant la date et l'heure actuelles du système. Cela me permet d'obtenir la date et l'heure locales du navigateur, et de l'utiliser dans diverses opérations. C'est un moyen facile de travailler avec des dates en JavaScript.
+
+#### b) **`toISOString()` et `split("T")[0]`**
+
+const today = new Date().toISOString().split("T")[0];
+
+- **Ce que j'ai appris** : La méthode `toISOString()` permet de convertir une date en une chaîne au format ISO 8601 (par exemple, `2024-11-11T12:34:56.000Z`). En utilisant `split("T")[0]`, je sépare la partie "date" et j'obtiens uniquement la date au format `YYYY-MM-DD`, ce qui est nécessaire pour les champs `input` de type `date` en HTML.
+
+#### c) **`setDate()` et `getDate()`**
+
+let tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+
+- **Ce que j'ai appris** : La méthode `getDate()` retourne le jour du mois pour une date donnée (de 1 à 31). Avec `setDate()`, je peux ajuster cette valeur, par exemple pour ajouter un jour à la date actuelle. Dans ce cas, je crée la date de demain en incrémentant simplement la date actuelle de 1.
+
+#### d) **`getTime()` et `Math.ceil()`**
+
+let diffTime = endDate.getTime() - startDate.getTime();
+let diffDays = Math.ceil(diffTime / (1000 _ 60 _ 60 \* 24));
+
+- **Ce que j'ai appris** : `getTime()` retourne le nombre de millisecondes écoulées depuis le 1er janvier 1970 (date "epoch"). Pour calculer la différence entre deux dates, je soustrais leurs valeurs en millisecondes et puis je divise par le nombre de millisecondes dans une journée (1000 _ 60 _ 60 \* 24) pour obtenir la différence en jours. `Math.ceil()` arrondit la valeur au jour supérieur, car je veux toujours afficher un nombre entier de jours.
+
+### 2. **Manipulation des Éléments HTML**
+
+#### a) **`textContent` et `innerHTML`**
+
+let spanPrice = nightprice.textContent;
+nbNuitContainerExist.innerHTML = diffDays + " Nuitées";
+
+- **Ce que j'ai appris** : `textContent` et `innerHTML` sont utilisés pour lire et écrire le contenu d'un élément HTML. J'ai utilisé `textContent` pour obtenir le prix de la nuitée dans un élément et l'afficher dynamiquement dans le calcul du prix total. J'ai utilisé `innerHTML` pour insérer dynamiquement du texte HTML (comme le nombre de nuits) dans un élément HTML.
+
+#### b) **`createElement()` et `appendChild()`**
+
+let nbNuit = document.createElement("h5");
+nbNuitContainer.appendChild(nbNuit);
+
+- **Ce que j'ai appris** : `createElement()` crée un nouvel élément HTML (dans ce cas, un élément `<h5>`). Ensuite, avec `appendChild()`, je l'ajoute à un élément existant sur la page. Cela m'a permis de créer et d'afficher dynamiquement des éléments sans avoir besoin de les définir directement dans le HTML.
+
+### 3. **Gestion des Événements**
+
+#### a) **`addEventListener()`**
+
+start_date.addEventListener("change", (e) => {
+// code...
+});
+
+end_date.addEventListener("change", () => {
+// code...
+});
+
+- **Ce que j'ai appris** : `addEventListener()` est une méthode puissante pour écouter et répondre à des événements utilisateur. Dans ce cas, j'écoute les changements dans les champs de saisie de dates (démarrage et fin), afin de recalculer les valeurs en temps réel dès qu'une nouvelle date est sélectionnée. Cela me permet de rendre l'interface interactive et réactive.
+
+### 4. **Calculs dynamiques**
+
+#### a) **Calcul de la différence en jours et du prix total**
+
+let totalPrice = diffDays \* nightPriceNumber;
+document.getElementById("total").textContent = totalPrice;
+
+- **Ce que j'ai appris** : Je combine les concepts de manipulation des dates et des calculs pour obtenir un résultat dynamique. Ici, j'effectue un calcul pour déterminer le nombre de nuits entre deux dates, puis je multiplie ce nombre par le prix de la nuitée pour obtenir le prix total du séjour. Le résultat est ensuite affiché dans un élément HTML, en mettant à jour son contenu avec `textContent`.
+
+### 5. **Validation et mise à jour des champs de date**
+
+#### a) **Mettre à jour les dates min et max des inputs**
+
+start_date.value = today;
+start_date.min = today;
+end_date.value = tomorrowDate;
+end_date.min = tomorrowDate;
+
+- **Ce que j'ai appris** : En JavaScript, je peux facilement manipuler les attributs des éléments HTML, comme les valeurs des champs de saisie. Ici, j'ai utilisé les propriétés `value` et `min` des éléments `<input>` pour définir la date actuelle comme date minimale pour le champ de début (`start_date`) et la date de demain comme date minimale pour le champ de fin (`end_date`). Cela assure que l'utilisateur ne peut pas sélectionner une date dans le passé pour le début du séjour.
+
+### Résumé des Fonctionnalités et Méthodes Utilisées
+
+- **Manipulation des dates** : `new Date()`, `toISOString()`, `setDate()`, `getTime()`, et `Math.ceil()` pour travailler avec des dates et effectuer des calculs sur celles-ci (différence en jours, ajustement de dates).
+- **Interaction avec le DOM** : `textContent`, `innerHTML`, `createElement()`, et `appendChild()` pour manipuler et mettre à jour le contenu HTML de manière dynamique.
+- **Gestion des événements** : `addEventListener()` pour réagir aux interactions de l'utilisateur, comme les changements dans les champs de date.
+- **Calculs dynamiques** : Calcul de la différence de jours et du prix total en utilisant des valeurs provenant des champs de saisie, puis mise à jour de l'interface utilisateur en temps réel.
+
+En travaillant sur ce projet, j'ai renforcé mes compétences en manipulation de dates, gestion dynamique du DOM et calculs basés sur l'interaction de l'utilisateur avec les formulaires. Ce code m'a permis d'apprendre à créer une expérience utilisateur fluide et interactive.
